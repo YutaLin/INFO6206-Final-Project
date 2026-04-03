@@ -1,0 +1,20 @@
+WHAT YOU NEED:
+- Java 11 or higher (check with: java -version)
+- Maven (check with: mvn -version)
+- That's it!
+
+RUNNING THE PROJECT:
+
+  1. Open Terminal or Command Prompt
+  2. Go to project folder:
+     cd /path/to/FinalProject
+  3. Compile it:
+     mvn clean compile
+  4. Run it:
+     mvn javafx:run
+  5. Wait a few seconds, app will open
+
+If something goes wrong:
+- Make sure Java 11+ is installed
+- Make sure Maven is installed
+- Try "mvn clean compile" first
