@@ -97,94 +97,10 @@ public class BrowsingHistoryService {
     }
 
     /**
-     * Get current product
-     * Time Complexity: O(1)
-     */
-    public Product getCurrentProduct() {
-        return currentProduct;
-    }
-
-    /**
-     * Peek at previous product without navigating
-     * Time Complexity: O(1)
-     */
-    public Product peekBack() {
-        if (backStack.isEmpty()) {
-            return null;
-        }
-        return backStack.peek();
-    }
-
-    /**
-     * Peek at next product without navigating
-     * Time Complexity: O(1)
-     */
-    public Product peekForward() {
-        if (forwardStack.isEmpty()) {
-            return null;
-        }
-        return forwardStack.peek();
-    }
-
-    /**
-     * Get back history as list
-     * Time Complexity: O(n)
-     */
-    public List<Product> getBackHistory() {
-        return backStack.toList();
-    }
-
-    /**
-     * Get forward history as list
-     * Time Complexity: O(n)
-     */
-    public List<Product> getForwardHistory() {
-        return forwardStack.toList();
-    }
-
-    /**
      * Get size of back history
      * Time Complexity: O(1)
      */
     public int getBackHistorySize() {
         return backStack.size();
-    }
-
-    /**
-     * Get size of forward history
-     * Time Complexity: O(1)
-     */
-    public int getForwardHistorySize() {
-        return forwardStack.size();
-    }
-
-    /**
-     * Clear all history
-     * Time Complexity: O(1)
-     */
-    public void clear() {
-        backStack.clear();
-        forwardStack.clear();
-        currentProduct = null;
-    }
-
-    /**
-     * Get history summary
-     */
-    public String getHistorySummary() {
-        return String.format("History: %d back, %d forward, Current: %s",
-                           backStack.size(),
-                           forwardStack.size(),
-                           currentProduct != null ? currentProduct.getName() : "None");
-    }
-
-    /**
-     * Get performance information
-     */
-    public String getPerformanceInfo() {
-        return "Browsing History uses Stack (Linked List based)\n" +
-               "- Time Complexity: O(1) for all operations (push, pop, peek)\n" +
-               "- Space Complexity: O(n) where n is number of visited products\n" +
-               "- Perfect for LIFO (Last-In-First-Out) navigation pattern";
     }
 }

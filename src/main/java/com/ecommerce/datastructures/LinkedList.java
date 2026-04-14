@@ -1,5 +1,8 @@
 package com.ecommerce.datastructures;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Custom Doubly Linked List implementation
  * Time Complexity: O(1) for add/remove at ends, O(n) for access by index
@@ -210,8 +213,8 @@ public class LinkedList<T> {
      * Convert to Java List for iteration
      * Time Complexity: O(n)
      */
-    public java.util.List<T> toList() {
-        java.util.List<T> list = new java.util.ArrayList<>();
+    public List<T> toList() {
+        List<T> list = new ArrayList<>();
         Node current = head;
         while (current != null) {
             list.add(current.data);

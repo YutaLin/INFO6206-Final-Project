@@ -1,6 +1,8 @@
 package com.ecommerce.datastructures;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * Custom Priority Queue implementation using a binary heap
@@ -149,8 +151,8 @@ public class PriorityQueue<T> {
     /**
      * Get all elements as a list (in heap order, not sorted)
      */
-    public java.util.List<T> toList() {
-        java.util.List<T> list = new java.util.ArrayList<>();
+    public List<T> toList() {
+        List<T> list = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             list.add(heap[i]);
         }

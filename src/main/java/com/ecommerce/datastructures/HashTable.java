@@ -1,5 +1,8 @@
 package com.ecommerce.datastructures;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Custom Hash Table implementation using chaining for collision resolution
  * Time Complexity: O(1) average case for put, get, remove
@@ -157,42 +160,8 @@ public class HashTable<K, V> {
         }
     }
 
-    /**
-     * Get all keys
-     */
-    public java.util.List<K> keys() {
-        java.util.List<K> keyList = new java.util.ArrayList<>();
-        for (Object obj : table) {
-            Entry current = (Entry) obj;
-            while (current != null) {
-                keyList.add(current.key);
-                current = current.next;
-            }
-        }
-        return keyList;
-    }
-
-    /**
-     * Get all values
-     */
-    public java.util.List<V> values() {
-        java.util.List<V> valueList = new java.util.ArrayList<>();
-        for (Object obj : table) {
-            Entry current = (Entry) obj;
-            while (current != null) {
-                valueList.add(current.value);
-                current = current.next;
-            }
-        }
-        return valueList;
-    }
-
     public int size() {
         return size;
-    }
-
-    public boolean isEmpty() {
-        return size == 0;
     }
 
     public void clear() {

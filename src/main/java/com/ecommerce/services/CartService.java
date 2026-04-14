@@ -98,22 +98,6 @@ public class CartService {
     }
 
     /**
-     * Get cart item by product ID
-     * Time Complexity: O(1)
-     */
-    public CartItem getItem(int productId) {
-        return productIdToCartItem.get(productId);
-    }
-
-    /**
-     * Check if product is in cart
-     * Time Complexity: O(1)
-     */
-    public boolean containsProduct(int productId) {
-        return productIdToCartItem.containsKey(productId);
-    }
-
-    /**
      * Get total number of items (sum of quantities)
      * Time Complexity: O(n)
      */
@@ -123,14 +107,6 @@ public class CartService {
             count += item.getQuantity();
         }
         return count;
-    }
-
-    /**
-     * Get number of unique products in cart
-     * Time Complexity: O(1)
-     */
-    public int getUniqueItemCount() {
-        return cartItems.size();
     }
 
     /**
@@ -167,13 +143,5 @@ public class CartService {
      */
     public boolean isEmpty() {
         return cartItems.isEmpty();
-    }
-
-    /**
-     * Get cart summary
-     */
-    public String getSummary() {
-        return String.format("Cart: %d items, Total: %s",
-                           getTotalItemCount(), getFormattedTotal());
     }
 }

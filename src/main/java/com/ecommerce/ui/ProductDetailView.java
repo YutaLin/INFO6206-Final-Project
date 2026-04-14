@@ -31,11 +31,11 @@ public class ProductDetailView {
     }
 
     /**
-     * Show product details in a modal dialog
+     * Show product details in a non-modal dialog
      */
     public void show() {
         Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initModality(Modality.NONE);
         dialog.setTitle(product.getName());
 
         BorderPane layout = new BorderPane();

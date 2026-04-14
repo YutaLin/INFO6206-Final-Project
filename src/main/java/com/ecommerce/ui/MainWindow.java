@@ -121,7 +121,11 @@ public class MainWindow extends Application {
             "Rating (Low to High)"
         );
         sortComboBox.setValue("Name (A-Z)");
-        sortComboBox.setOnAction(e -> sortProducts());
+        sortComboBox.setOnAction(e -> {
+            sortProducts();
+            updateProductGrid();
+            updateStatus("Sorted by: " + sortComboBox.getValue());
+        });
 
         controlBox.getChildren().addAll(
             categoryLabel, categoryComboBox,
@@ -223,6 +227,12 @@ public class MainWindow extends Application {
         }
 
         currentCategory = "Search Results";
+
+        // Reset dropdown without triggering action handler (to avoid clearing search field)
+        categoryComboBox.setOnAction(null);
+        categoryComboBox.setValue("All Products");
+        categoryComboBox.setOnAction(e -> filterByCategory());
+
         sortProducts();
         updateProductGrid();
         updateStatus("Found " + currentProducts.size() + " products matching '" + query + "'");
@@ -246,6 +256,9 @@ public class MainWindow extends Application {
      */
     private void filterByCategory() {
         String selectedCategory = categoryComboBox.getValue();
+
+        // Clear search field when switching to category view
+        searchField.clear();
 
         if (selectedCategory.equals("All Products")) {
             currentProducts = new ArrayList<>(productService.getAllProducts());
@@ -305,6 +318,15 @@ public class MainWindow extends Application {
         browsingHistoryService.visit(product);
         updateNavigationButtons();
 
+        // Show product details
+        showProductDetails(product);
+    }
+
+    /**
+     * Show product details without modifying browsing history
+     * Used by navigation (back/forward) to avoid re-adding to history
+     */
+    private void showProductDetails(Product product) {
         // Get recommendations (Priority Queue operation)
         List<Product> recommended = recommendationService.getRecommendedProducts(
             product, productService.getAllProducts(), 4
@@ -353,8 +375,8 @@ public class MainWindow extends Application {
     private void navigateBack() {
         Product previousProduct = browsingHistoryService.back();
         if (previousProduct != null) {
-            onProductClick(previousProduct);
-            updateStatus("Navigated back to: " + previousProduct.getName());
+            // Update status only - don't auto-open detail window
+            updateStatus("Navigated back to: " + previousProduct.getName() + " (click View to see details)");
         }
         updateNavigationButtons();
     }
@@ -365,8 +387,8 @@ public class MainWindow extends Application {
     private void navigateForward() {
         Product nextProduct = browsingHistoryService.forward();
         if (nextProduct != null) {
-            onProductClick(nextProduct);
-            updateStatus("Navigated forward to: " + nextProduct.getName());
+            // Update status only - don't auto-open detail window
+            updateStatus("Navigated forward to: " + nextProduct.getName() + " (click View to see details)");
         }
         updateNavigationButtons();
     }

@@ -1,5 +1,8 @@
 package com.ecommerce.datastructures;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Custom Stack implementation using linked nodes
  * Time Complexity: O(1) for push, pop, peek
@@ -91,8 +94,8 @@ public class Stack<T> {
      * Convert stack to list (top to bottom)
      * Time Complexity: O(n)
      */
-    public java.util.List<T> toList() {
-        java.util.List<T> list = new java.util.ArrayList<>();
+    public List<T> toList() {
+        List<T> list = new ArrayList<>();
         Node current = top;
         while (current != null) {
             list.add(current.data);

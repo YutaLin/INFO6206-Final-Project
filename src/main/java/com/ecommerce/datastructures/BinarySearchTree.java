@@ -1,5 +1,9 @@
 package com.ecommerce.datastructures;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+
 /**
  * Custom Binary Search Tree implementation
  * Time Complexity: O(log n) average case for insert, search, delete
@@ -49,29 +53,6 @@ public class BinarySearchTree<T extends Comparable<T>> {
         // If equal, don't insert duplicate
 
         return node;
-    }
-
-    /**
-     * Search for a value in the BST
-     * Time Complexity: O(log n) average, O(n) worst case
-     */
-    public T search(T data) {
-        return searchRec(root, data);
-    }
-
-    private T searchRec(Node node, T data) {
-        if (node == null) {
-            return null;
-        }
-
-        int cmp = data.compareTo(node.data);
-        if (cmp == 0) {
-            return node.data;
-        } else if (cmp < 0) {
-            return searchRec(node.left, data);
-        } else {
-            return searchRec(node.right, data);
-        }
     }
 
     /**
@@ -131,11 +112,11 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * Inorder traversal of the BST
      * Time Complexity: O(n)
      */
-    public void inorderTraversal(java.util.function.Consumer<T> action) {
+    public void inorderTraversal(Consumer<T> action) {
         inorderTraversalRec(root, action);
     }
 
-    private void inorderTraversalRec(Node node, java.util.function.Consumer<T> action) {
+    private void inorderTraversalRec(Node node, Consumer<T> action) {
         if (node != null) {
             inorderTraversalRec(node.left, action);
             action.accept(node.data);
@@ -147,22 +128,9 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * Get all elements in sorted order
      * Time Complexity: O(n)
      */
-    public java.util.List<T> toList() {
-        java.util.List<T> list = new java.util.ArrayList<>();
+    public List<T> toList() {
+        List<T> list = new ArrayList<>();
         inorderTraversal(list::add);
         return list;
-    }
-
-    public int size() {
-        return size;
-    }
-
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    public void clear() {
-        root = null;
-        size = 0;
     }
 }

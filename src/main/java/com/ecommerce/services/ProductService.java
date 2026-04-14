@@ -1,7 +1,6 @@
 package com.ecommerce.services;
 
 import com.ecommerce.datastructures.BinarySearchTree;
-import com.ecommerce.datastructures.HashTable;
 import com.ecommerce.datastructures.CategoryTree;
 import com.ecommerce.models.Product;
 import com.ecommerce.models.Category;
@@ -10,17 +9,15 @@ import java.util.*;
 
 /**
  * ProductService manages products using custom data structures
- * Uses: BST for ordered storage, HashTable for fast lookup, CategoryTree for organization
+ * Uses: BST for ordered storage, CategoryTree for organization
  */
 public class ProductService {
     private final BinarySearchTree<Product> productBST;
-    private final HashTable<Integer, Product> productHashTable;
     private final CategoryTree categoryTree;
     private final Category rootCategory;
 
     public ProductService() {
         this.productBST = new BinarySearchTree<>();
-        this.productHashTable = new HashTable<>();
         this.rootCategory = initializeCategories();
         this.categoryTree = new CategoryTree(rootCategory);
         initializeSampleProducts();
@@ -374,24 +371,16 @@ public class ProductService {
 
     /**
      * Add a product to all data structures
-     * Time Complexity: O(log n) for BST, O(1) for HashTable
+     * Time Complexity: O(log n) for BST
      */
     public void addProduct(Product product) {
         productBST.insert(product);
-        productHashTable.put(product.getId(), product);
 
         // Add to category
         Category category = categoryTree.findCategory(product.getCategory());
         if (category != null) {
             category.addProduct(product);
         }
-    }
-
-    /**
-     * Get product by ID using HashTable (O(1) lookup)
-     */
-    public Product getProductById(int id) {
-        return productHashTable.get(id);
     }
 
     /**
@@ -415,39 +404,9 @@ public class ProductService {
     }
 
     /**
-     * Get the category tree
-     */
-    public CategoryTree getCategoryTree() {
-        return categoryTree;
-    }
-
-    /**
      * Get root category
      */
     public Category getRootCategory() {
         return rootCategory;
-    }
-
-    /**
-     * Remove product by ID
-     */
-    public boolean removeProduct(int id) {
-        Product product = productHashTable.remove(id);
-        if (product != null) {
-            productBST.delete(product);
-            Category category = categoryTree.findCategory(product.getCategory());
-            if (category != null) {
-                category.removeProduct(product);
-            }
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Get total product count
-     */
-    public int getProductCount() {
-        return productHashTable.size();
     }
 }

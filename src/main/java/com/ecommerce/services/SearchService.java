@@ -66,62 +66,6 @@ public class SearchService {
     }
 
     /**
-     * Binary search for product by ID (requires sorted list)
-     * Time Complexity: O(log n)
-     */
-    public Product binarySearchById(List<Product> sortedProducts, int targetId) {
-        int left = 0;
-        int right = sortedProducts.size() - 1;
-
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            Product midProduct = sortedProducts.get(mid);
-
-            if (midProduct.getId() == targetId) {
-                return midProduct;
-            } else if (midProduct.getId() < targetId) {
-                left = mid + 1;
-            } else {
-                right = mid - 1;
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Filter products by price range
-     * Time Complexity: O(n)
-     */
-    public List<Product> filterByPriceRange(List<Product> products, double minPrice, double maxPrice) {
-        List<Product> results = new ArrayList<>();
-
-        for (Product product : products) {
-            if (product.getPrice() >= minPrice && product.getPrice() <= maxPrice) {
-                results.add(product);
-            }
-        }
-
-        return results;
-    }
-
-    /**
-     * Filter products by minimum rating
-     * Time Complexity: O(n)
-     */
-    public List<Product> filterByRating(List<Product> products, double minRating) {
-        List<Product> results = new ArrayList<>();
-
-        for (Product product : products) {
-            if (product.getRating() >= minRating) {
-                results.add(product);
-            }
-        }
-
-        return results;
-    }
-
-    /**
      * Sort products by price using Quick Sort
      * Time Complexity: O(n log n) average case
      */
@@ -227,23 +171,5 @@ public class SearchService {
         }
 
         return result;
-    }
-
-    /**
-     * Get sorting algorithm performance info
-     */
-    public String getSortPerformanceInfo(String algorithm) {
-        switch (algorithm.toLowerCase()) {
-            case "quicksort":
-                return "QuickSort: Average O(n log n), Worst O(n²) - Used for price and rating";
-            case "mergesort":
-                return "MergeSort: Guaranteed O(n log n) - Used for name sorting";
-            case "binary":
-                return "Binary Search: O(log n) - Requires sorted data";
-            case "linear":
-                return "Linear Search: O(n) - Used for text search";
-            default:
-                return "Unknown algorithm";
-        }
     }
 }
